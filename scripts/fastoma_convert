@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+'''
+    Run the conversion for the array job results for a FastOMA run
+'''
+from hogprop.OBOParser import OBO
+from hogprop.convert import Convert
+import sys
+
+
+def main(args):
+    # todo: replace with argparse
+    go_fn = args[0]
+    path = args[1]
+    out_fn = args[2]
+
+    go = OBO(go_fn, store_as_int=True)
+    with Convert(go, out_fn) as convert:
+        # cutoffs could be set here, but they are hard-set in convert atm.
+        convert.convert_path(path, cutoffs=None)
+
+
+if __name__ == '__main__':
+    main(sys.argv[1:])
